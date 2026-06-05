@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deteksi Penyakit — FishScan AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="detect.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <i data-lucide="scan-line" class="brand-logo-icon" style="color: #0066CC;"></i>
+        <span class="brand-text">FishScan <span class="brand-ai">AI</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="index.html#penyakit">Info Penyakit</a></li>
+        <li><a href="index.html#tentang">Tentang</a></li>
+      </ul>
+      <a href="detect.html" class="btn-nav">Mulai Deteksi</a>
+    </div>
+  </nav>
+
+  <div class="detect-page">
+    <div class="detect-header">
+      <h1>Deteksi Penyakit Ikan</h1>
+      <p>Unggah foto ikan Anda untuk mendapatkan analisis diagnosis berbasis jaringan saraf konvolusional (CNN) EfficientNetB0</p>
+    </div>
+
+    <div class="detect-container">
+
+      <div class="upload-panel" id="uploadPanel">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" hidden>
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">
+            <i data-lucide="upload-cloud" width="48" height="48" style="color: #0066CC;"></i>
+          </div>
+          <h3>Seret & Lepas Foto di Sini</h3>
+          <p>atau klik untuk memilih file dari perangkat</p>
+          <span class="upload-hint">Format didukung: JPG, PNG, WEBP — Maks. 16MB</span>
+          
+          <div style="margin: 16px auto 24px; max-width: 320px; display: flex; align-items: flex-start; gap: 8px; background: #fffbeb; color: #92400e; padding: 10px 14px; border-radius: 8px; font-size: 12px; text-align: left; border: 1px solid #fde68a;">
+            <i data-lucide="alert-triangle" width="16" height="16" style="flex-shrink: 0; margin-top: 2px;"></i>
+            <span><strong>Peringatan:</strong> Model AI ini secara eksklusif dilatih untuk spesimen ikan. Mengunggah objek lain akan menghasilkan klasifikasi yang tidak valid.</span>
+          </div>
+
+          <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+            Pilih File
+          </button> 
+        </div>
+
+        <div class="preview-zone" id="previewZone" style="display:none">
+          <div class="preview-card">
+            <img id="previewImg" src="" alt="Preview ikan">
+            <div class="preview-info">
+              <i data-lucide="image" width="16" height="16" style="color: #64748b;"></i>
+              <span id="fileName" class="file-name"></span>
+              <button class="btn-change" onclick="resetUpload()">Ganti Foto</button>
+            </div>
+          </div>
+          <button class="btn-analyze" id="analyzeBtn" onclick="analyzeImage()">
+            <i data-lucide="cpu" width="20" height="20"></i>
+            Analisis Gambar Sekarang
+          </button>
+        </div>
+
+        <div class="loading-zone" id="loadingZone" style="display:none">
+          <div class="loading-spinner-wrapper">
+            <div class="loading-spinner"></div>
+            <i data-lucide="search" class="spinner-center-icon" width="20" height="20" style="color: #0066CC;"></i>
+          </div>
+          <h3>Menganalisis Komponen Citra...</h3>
+          <div class="loading-steps">
+            <div class="ls-item active" id="ls1">
+              <i data-lucide="file-check" width="16" height="16"></i> Menerima file citra
+            </div>
+            <div class="ls-item" id="ls2">
+              <i data-lucide="maximize" width="16" height="16"></i> Preprocessing matriks (224×224)
+            </div>
+            <div class="ls-item" id="ls3">
+              <i data-lucide="layers" width="16" height="16"></i> Mengekstraksi fitur lewat model EfficientNetB0
+            </div>
+            <div class="ls-item" id="ls4">
+              <i data-lucide="bar-chart" width="16" height="16"></i> Menghitung probabilitas Softmax
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-panel" id="resultPanel" style="display:none">
+        <div class="result-header">
+          <div class="result-fish-img">
+            <img id="resultImg" src="" alt="Ikan dianalisis">
+          </div>
+          <div class="result-main">
+            <div class="result-label">Hasil Klasifikasi AI</div>
+            <h2 id="diseaseName" class="disease-name"></h2>
+            <div class="confidence-wrap">
+              <div class="confidence-bar-track">
+                <div class="confidence-bar-fill" id="confBar"></div>
+              </div>
+              <span class="confidence-pct" id="confPct"></span>
+            </div>
+            <div id="severityBadge" class="severity-result"></div>
+          </div>
+        </div>
+
+        <div class="result-details">
+          <div class="detail-section">
+            <h3>
+              <i data-lucide="activity" width="18" height="18" style="color: #64748b; vertical-align: middle; margin-right: 6px;"></i>
+              Gejala yang Terdeteksi
+            </h3>
+            <ul id="symptomsList" class="detail-list"></ul>
+          </div>
+
+          <div class="detail-section">
+            <h3>
+              <i data-lucide="heart-pulse" width="18" height="18" style="color: #64748b; vertical-align: middle; margin-right: 6px;"></i>
+              Rekomendasi Tindakan & Penanganan
+            </h3>
+            <ul id="treatmentList" class="detail-list treatment"></ul>
+          </div>
+
+          <div class="detail-section">
+            <h3>
+              <i data-lucide="bar-chart-3" width="18" height="18" style="color: #64748b; vertical-align: middle; margin-right: 6px;"></i>
+              Metrik Distribusi Probabilitas Prediksi
+            </h3>
+            <div id="topPredictions" class="predictions-chart"></div>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-primary" onclick="resetAll()">
+            <i data-lucide="refresh-cw" width="18" height="18"></i>
+            Analisis Foto Lain
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tips-section">
+      <h3>
+        <i data-lucide="lightbulb" width="20" height="20" style="color: #B45309; vertical-align: middle; margin-right: 6px;"></i>
+        Panduan Pengambilan Foto untuk Akurasi Maksimal
+      </h3>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <div class="tip-icon-box">
+            <i data-lucide="sun" width="24" height="24"></i>
+          </div>
+          <p>Gunakan pencahayaan yang cukup, merata, dan natural</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon-box">
+            <i data-lucide="focus" width="24" height="24"></i>
+          </div>
+          <p>Pastikan fokus lensa tajam dan objek ikan berada di tengah</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon-box">
+            <i data-lucide="scan" width="24" height="24"></i>
+          </div>
+          <p>Ambil foto dari sudut tegak lurus (samping/lateral tubuh ikan)</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-icon-box">
+            <i data-lucide="eye-off" width="24" height="24"></i>
+          </div>
+          <p>Minimalkan pantulan cahaya atau bayangan pada permukaan air</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="detect.js"></script>
+  
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

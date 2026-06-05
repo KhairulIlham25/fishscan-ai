@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FishScan AI — Deteksi Penyakit Ikan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <i data-lucide="scan-line" class="brand-logo-icon" style="color: #0066CC;"></i>
+        <span class="brand-text">FishScan <span class="brand-ai">AI</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Beranda</a></li>
+        <li><a href="#penyakit">Info Penyakit</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+      </ul>
+      <a href="detect.html" class="btn-nav">Mulai Deteksi</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-badge">
+        <i data-lucide="microscope" width="16" height="16"></i> 
+        Didukung Teknologi CNN Deep Learning
+      </div>
+      <h1 class="hero-title">
+        Deteksi Penyakit Ikan<br>
+        <span class="hero-title-accent">Lebih Cepat & Akurat</span>
+      </h1>
+      <p class="hero-desc">
+        Sistem AI berbasis Convolutional Neural Network (EfficientNetB0) untuk mengidentifikasi penyakit pada ikan budidaya air laut. 
+        Upload foto ikan dan dapatkan diagnosis dalam hitungan detik.
+      </p>
+      <div class="hero-actions">
+        <a href="detect.html" class="btn-primary">
+          <i data-lucide="upload-cloud" width="20" height="20"></i>
+          Upload Foto Ikan
+        </a>
+        <a href="#cara-kerja" class="btn-secondary">Cara Kerja <i data-lucide="arrow-right" width="16" height="16"></i></a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">97%</span>
+          <span class="stat-label">Akurasi Model</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">4</span>
+          <span class="stat-label">Jenis Kelas</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num"><3s</span>
+          <span class="stat-label">Waktu Analisis</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hc-header">
+          <div class="hc-dot red"></div>
+          <div class="hc-dot yellow"></div>
+          <div class="hc-dot green"></div>
+          <span>Hasil Analisis</span>
+        </div>
+        <div class="hc-body">
+          <div class="hc-fish-img">
+            <i data-lucide="fish" width="48" height="48" color="#0066CC"></i>
+          </div>
+          <div class="hc-result">
+            <div class="hc-disease">Bacterial Infection</div>
+            <div class="hc-bar-wrap">
+              <div class="hc-bar-fill" style="width:96.4%"></div>
+            </div>
+            <div class="hc-conf">Kepercayaan: 96.4%</div>
+          </div>
+          <div class="hc-badges">
+            <span class="badge-sev high">Tinggi</span>
+            <span class="badge-act">Segera Tangani</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cara-kerja" class="section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Cara Kerja Sistem</h2>
+        <p>Proses deteksi penyakit ikan menggunakan arsitektur CNN yang telah dilatih</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon"><i data-lucide="camera" width="32" height="32"></i></div>
+          <h3>Upload Foto</h3>
+          <p>Unggah foto ikan budidaya Anda dalam format JPG, PNG, atau WEBP.</p>
+        </div>
+        <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon"><i data-lucide="settings-2" width="32" height="32"></i></div>
+          <h3>Preprocessing</h3>
+          <p>Gambar diubah ukurannya ke 224×224 piksel untuk dievaluasi oleh sistem.</p>
+        </div>
+        <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon"><i data-lucide="brain-circuit" width="32" height="32"></i></div>
+          <h3>Analisis AI</h3>
+          <p>Model mengekstrak fitur visual dari gambar melalui algoritma deteksi pola penyakit EfficientNetB0.</p>
+        </div>
+        <div class="step-arrow"><i data-lucide="chevron-right"></i></div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-icon"><i data-lucide="clipboard-check" width="32" height="32"></i></div>
+          <h3>Hasil & Saran</h3>
+          <p>Sistem menampilkan nama penyakit, tingkat kepercayaan, gejala, dan rekomendasi pakar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="penyakit" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Penyakit yang Dapat Dideteksi</h2>
+        <p>Sistem ini dilatih untuk mengidentifikasi 4 kelas kondisi kesehatan ikan</p>
+      </div>
+      <div class="disease-grid">
+        <div class="disease-card">
+          <div class="disease-icon" style="background:#E0F2FE; color:#0369A1;">
+            <i data-lucide="activity"></i>
+          </div>
+          <h3>Healthy Fish</h3>
+          <span class="severity-badge low">Kondisi Normal</span>
+          <p>Ikan dalam kondisi sehat tanpa gejala klinis. Bergerak aktif dan warna tubuh tidak memudar.</p>
+          <ul>
+            <li>Bebas dari luka/bercak</li>
+            <li>Sisik rapi dan utuh</li>
+            <li>Mata jernih</li>
+          </ul>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon" style="background:#FEE2E2; color:#B91C1C;">
+            <i data-lucide="bug"></i>
+          </div>
+          <h3>Bacterial Infection</h3>
+          <span class="severity-badge high">Tinggi</span>
+          <p>Infeksi bakteri menyebabkan kerusakan jaringan (seperti Aeromoniasis). Dipicu oleh kualitas air buruk.</p>
+          <ul>
+            <li>Luka borok kemerahan</li>
+            <li>Sisik mengelupas/berdiri</li>
+            <li>Perut membengkak</li>
+          </ul>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon" style="background:#FEF3C7; color:#B45309;">
+            <i data-lucide="droplet"></i>
+          </div>
+          <h3>Fungal Infection</h3>
+          <span class="severity-badge medium">Sedang</span>
+          <p>Infeksi jamur (seperti Saprolegniasis). Sering muncul sebagai infeksi sekunder pada luka terbuka.</p>
+          <ul>
+            <li>Bercak putih seperti kapas</li>
+            <li>Muncul di area kulit/sirip</li>
+            <li>Ikan tampak lesu</li>
+          </ul>
+        </div>
+        <div class="disease-card">
+          <div class="disease-icon" style="background:#F3E8FF; color:#6B21A8;">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <h3>Parasitic & Viral</h3>
+          <span class="severity-badge high">Tinggi</span>
+          <p>Serangan patogen menular yang mengganggu sistem pernapasan serta mobilitas ikan harian.</p>
+          <ul>
+            <li>Bintik putih (White Spot)</li>
+            <li>Produksi lendir berlebih</li>
+            <li>Berenang tidak seimbang</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tentang" class="section-alt">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>Tentang Sistem</h2>
+          <p>
+            FishScan AI adalah implementasi sistem identifikasi penyakit ikan berbasis 
+            <strong>Convolutional Neural Network (CNN)</strong> menggunakan basis model arsitektur <strong>EfficientNetB0</strong>.
+          </p>
+          <p>
+            Model dilatih memanfaatkan metode Transfer Learning dan Fine-Tuning pada lapisan atas 
+            untuk mencapai akurasi maksimal dalam ekstraksi fitur, tanpa mengalami kendala overfitting.
+          </p>
+          <div class="about-tech">
+            <span class="tech-tag">TensorFlow/Keras</span>
+            <span class="tech-tag">Python FastAPI</span>
+            <span class="tech-tag">EfficientNetB0</span>
+            <span class="tech-tag">NumPy</span>
+            <span class="tech-tag">PIL/Pillow</span>
+          </div>
+        </div>
+        <div class="about-arch">
+          <h3>Arsitektur Model CNN</h3>
+          <div class="arch-layers">
+            <div class="arch-layer input">Input Layer (224×224×3)</div>
+            <div class="arch-arrow"><i data-lucide="arrow-down" width="16" height="16"></i></div>
+            <div class="arch-layer conv">Base Model EfficientNetB0 (ImageNet Weights)</div>
+            <div class="arch-arrow"><i data-lucide="arrow-down" width="16" height="16"></i></div>
+            <div class="arch-layer pool">GlobalAveragePooling2D</div>
+            <div class="arch-arrow"><i data-lucide="arrow-down" width="16" height="16"></i></div>
+            <div class="arch-layer flat">Dropout(0.3)</div>
+            <div class="arch-arrow"><i data-lucide="arrow-down" width="16" height="16"></i></div>
+            <div class="arch-layer output">Output Dense(4) + Softmax</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="nav-brand" style="margin-bottom:12px">
+            <i data-lucide="scan-line" class="brand-logo-icon" style="color: #0066CC;"></i>
+            <span class="brand-text">FishScan <span class="brand-ai">AI</span></span>
+          </div>
+          <p style="color:#94a3b8;font-size:14px;max-width:280px">
+            Implementasi CNN untuk identifikasi penyakit ikan budidaya air laut berbasis kecerdasan buatan.
+          </p>
+        </div>
+        <div>
+          <h4>Navigasi</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="detect.html">Deteksi Penyakit</a></li>
+            <li><a href="#penyakit">Info Penyakit</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Teknologi</h4>
+          <ul class="footer-links">
+            <li><a href="#">CNN EfficientNetB0</a></li>
+            <li><a href="#">Python FastAPI</a></li>
+            <li><a href="#">TensorFlow/Keras</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 FishScan AI — Proyek Pengolahan Citra Digital UMRAH</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
